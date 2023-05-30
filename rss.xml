@@ -5,8 +5,37 @@
         <link>http://example.com</link>
         <description>老师你喜欢玩原神吗，或者星铁</description>
         <language>cn</language>
-        <pubDate>Sat, 27 May 2023 16:45:40 +0800</pubDate>
-        <lastBuildDate>Sat, 27 May 2023 16:45:40 +0800</lastBuildDate>
+        <pubDate>Tue, 30 May 2023 16:01:31 +0800</pubDate>
+        <lastBuildDate>Tue, 30 May 2023 16:01:31 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">http://example.com/2023/05/30/unity%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/</guid>
+            <title></title>
+            <link>http://example.com/2023/05/30/unity%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/</link>
+            <pubDate>Tue, 30 May 2023 16:01:31 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;在根据四叉树节点创建了 1365 个地形分块网格并保存到本地后，我们接下来要在游戏运行的过程中动态地显示所需的网格，这是最关键的一步。&lt;/p&gt;
+&lt;p&gt;如何根据摄像机位置动态地选择地形块？这其中体现了由整体到局部，从简单到复杂的原则。&lt;/p&gt;
+&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;我们首先创建三个缓存列表。&lt;/li&gt;
+&lt;li&gt;我们先将索引为 0 的地形分块（即最高 LOD 等级）的分块放入 BufferA；&lt;/li&gt;
+&lt;li&gt;然后遍历 BufferA，判断 BufferA 中的每一个元素是否符合 “无需更加详细” 的条件，如果是，将它放入 BufferFinal，否则放入 BufferB；&lt;/li&gt;
+&lt;li&gt;在遍历完 BufferA 中的元素后，清空 BufferA，将 BufferB 的元素全部复制到 BufferA 中，清空 BufferB；&lt;/li&gt;
+&lt;li&gt;重复 2-3 步骤的操作，直到 BufferA、BufferB 列表均空。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;此时 BufferFinal 中存储的索引即是我们最终所需要的地形网格分块的索引。&lt;/p&gt;
+&lt;p&gt;我们把以上的操作封装成函数，在游戏开始运行时调用一次。这一部分的代码如下：&lt;/p&gt;
+&lt;p&gt;&amp;lt;代码&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;	&lt;/code&gt; 这一部分我选择将需要的网格实例化到子对象中而没有合并，如果需要优化的话，应该将网格合并成一个，可以减少 DrawCall 的数量。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;	&lt;/code&gt; 同时要注意的是：网格的实例化与显示并非在每一帧进行，可以维护一个数对来表示玩家摄像机所在的区域，如果玩家摄像机离开了原本的区域进入到新的区域中，那我们便执行一此地形网格更新操作：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;	&lt;/code&gt; &amp;lt;代码&amp;gt;&lt;/p&gt;
+&lt;p&gt;补充一点，在此之前我们可以从本地读取，在上一节生成网格时保存的四叉树信息，这部分代码很简单，如下所示：&lt;/p&gt;
+&lt;p&gt;&amp;lt;代码&amp;gt;&lt;/p&gt;
+&lt;p&gt;至此，我们大致完成了一个非常基础的一个四叉树网格地形系统，这其中还有很多问题，我大致思考了一下改进的方向：&lt;/p&gt;
+&lt;p&gt;性能优化方面的问题问题，比如显示的网格应该合并成一个而非保持多个对象；明显超出视线范围的地形网格分块应该直接剔除掉而非继续显示等；&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;	&lt;/code&gt; 代码复用性的方面的问题，有许多数据直接写死在代码里面，导致耦合度过高。在改进的时候，应该将这些数据参数化，将算法更优化，来降低耦合度，增强代码对不同大小的地形的复用能力；&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;	&lt;/code&gt; 效果实现方面的问题，没有考虑不同 LOD 等级的地块的连接处的露缝问题，应该在后续中改进&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;	&lt;/code&gt; 这里我仅仅实现了最基本的网格动态显示，没有考虑渲染，在以后的改进中，我会尝试在地形渲染方面做出更多改进。&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">http://example.com/2023/05/27/hello-world/</guid>
             <title></title>

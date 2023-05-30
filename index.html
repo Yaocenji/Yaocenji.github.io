@@ -77,7 +77,7 @@
         <nav id="nav">
   <div class="inner">
     <div class="toggle">
-      <div class="lines" aria-label="Toggle navigation bar">
+      <div class="lines" aria-label="切换导航栏">
         <span class="line"></span>
         <span class="line"></span>
         <span class="line"></span>
@@ -100,12 +100,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeyonbf9j20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclffsa1cj20zk0m811l.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclxfdlttj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipey0a334j20zk0m8qpt.jpg"></li>
         </ul>
       </div>
     </header>
@@ -127,17 +127,47 @@
         <div id="main" class="pjax">
           
   <div class="index wrap">
-    <h2 class="divider">Post List</h2>
+    <h2 class="divider">文章列表</h2>
     <div class="segments posts">
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/05/27/hello-world/" itemprop="url" title="Untitled"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></a>
+    <a href="/2023/05/30/unity%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/" itemprop="url" title="未命名"><img data-src="https://tva3.sinaimg.cn/mw690/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="Created: 2023-05-27 16:45:40">
+  <span class="item" title="创建时间：2023-05-30 16:01:31">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-30T16:01:31+08:00">2023-05-30</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/05/30/unity%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/" itemprop="url" title="未命名">未命名</a></h3>
+    <div class="excerpt">
+        在根据四叉树节点创建了 1365 个地形分块网格并保存到本地后，我们接下来要在游戏运行的过程中动态地显示所需的网格，这是最关键的一步。
+如何根据摄像机位置动态地选择地形块？这其中体现了由整体到局部，从简单到复杂的原则。
+
+我们首先创建三个缓存列表。
+我们先将索引为 0 的地形分块（即最高 LOD 等级）的分块放入 BufferA；
+然后遍历 BufferA，判断 BufferA 中的每一个元素是否符合 “无需更加详细” 的条件，如果是，将它放入 BufferFinal，否则放入 BufferB；
+在遍历完 BufferA 中的元素后，清空 BufferA，将 BufferB 的元素全部复制到...
+    </div>
+    <a href="/2023/05/30/unity%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/" itemprop="url" title="未命名" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/27/hello-world/" itemprop="url" title="未命名"><img data-src="https://tva3.sinaimg.cn/mw690/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-27 16:45:40">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
@@ -145,12 +175,12 @@
   </span>
 </div>
 
-    <h3><a href="/2023/05/27/hello-world/" itemprop="url" title="Untitled">Untitled</a></h3>
+    <h3><a href="/2023/05/27/hello-world/" itemprop="url" title="未命名">未命名</a></h3>
     <div class="excerpt">
         # 为什么我喜欢玩原神
 原神好玩捏
     </div>
-    <a href="/2023/05/27/hello-world/" itemprop="url" title="Untitled" class="btn">more...</a>
+    <a href="/2023/05/27/hello-world/" itemprop="url" title="未命名" class="btn">more...</a>
   </div>
 </article>
 
@@ -169,11 +199,11 @@
 
   <div class="panels">
     <div class="inner">
-      <div class="contents panel pjax" data-title="Contents">
+      <div class="contents panel pjax" data-title="文章目录">
       </div>
-      <div class="related panel pjax" data-title="Related">
+      <div class="related panel pjax" data-title="系列文章">
       </div>
-      <div class="overview panel" data-title="Overview">
+      <div class="overview panel" data-title="站点概览">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <img class="image" itemprop="image" alt="Guoyangyang & Yangxingyu & Dongxiaoyu"
       data-src="/images/avatar.jpg">
@@ -184,8 +214,8 @@
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">1</span>
-        <span class="name">posts</span>
+        <span class="count">2</span>
+        <span class="name">文章</span>
       </a>
     </div>
 </nav>
@@ -197,7 +227,7 @@
   
     
   <li class="item">
-    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
   </li>
 
 
@@ -227,7 +257,7 @@
         <div class="widgets">
           
 <div class="rpost pjax">
-  <h2>Random Posts</h2>
+  <h2>随机文章</h2>
   <ul>
       
   <li class="item">
@@ -235,13 +265,22 @@
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/27/hello-world/" title="Untitled">Untitled</a></span>
+    <span><a href="/2023/05/27/hello-world/" title="未命名">未命名</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/30/unity%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/" title="未命名">未命名</a></span>
   </li>
 
   </ul>
 </div>
 <div>
-  <h2>Recent Comments</h2>
+  <h2>最新评论</h2>
   <ul class="leancloud-recent-comment"></ul>
 </div>
 
@@ -257,7 +296,7 @@
     <span class="author" itemprop="copyrightHolder">Guoyangyang & Yangxingyu & Dongxiaoyu @ Gamer World</span>
   </div>
   <div class="powered-by">
-    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
   </div>
 </div>
 
@@ -268,16 +307,16 @@
   var LOCAL = {
     path: '',
     favicon: {
-      show: "（●´3｀●）Goooood",
-      hide: "(´Д｀)Booooom"
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
     },
     search : {
-      placeholder: "Search for Posts",
-      empty: "We didn't find any results for the search: ${query}",
-      stats: "${hits} results found in ${time} ms"
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
     },
     valine: true,fancybox: true,
-    copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
     ignores : [
       function(uri) {
         return uri.includes('#');
