@@ -1,0 +1,16 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "玩原神玩的",
+    "description": "老师你喜欢玩原神吗，或者星铁",
+    "home_page_url": "http://example.com",
+    "items": [
+        {
+            "id": "http://example.com/2023/05/27/hello-world/",
+            "url": "http://example.com/2023/05/27/hello-world/",
+            "title": "",
+            "date_published": "2023-05-27T08:45:40.095Z",
+            "content_html": "<h1 id=\"为什么我喜欢玩原神\"><a class=\"markdownIt-Anchor\" href=\"#为什么我喜欢玩原神\">#</a> 为什么我喜欢玩原神</h1>\n<p>原神好玩捏</p>\n",
+            "tags": []
+        }
+    ]
+}

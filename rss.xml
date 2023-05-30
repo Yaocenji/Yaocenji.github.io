@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>玩原神玩的</title>
+        <link>http://example.com</link>
+        <description>老师你喜欢玩原神吗，或者星铁</description>
+        <language>cn</language>
+        <pubDate>Sat, 27 May 2023 16:45:40 +0800</pubDate>
+        <lastBuildDate>Sat, 27 May 2023 16:45:40 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">http://example.com/2023/05/27/hello-world/</guid>
+            <title></title>
+            <link>http://example.com/2023/05/27/hello-world/</link>
+            <pubDate>Sat, 27 May 2023 16:45:40 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;为什么我喜欢玩原神&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#为什么我喜欢玩原神&#34;&gt;#&lt;/a&gt; 为什么我喜欢玩原神&lt;/h1&gt;
+&lt;p&gt;原神好玩捏&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
