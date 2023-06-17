@@ -1,0 +1,745 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="玩原神玩的" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="玩原神玩的" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="玩原神玩的" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+
+<link rel="canonical" href="http://example.com/2023/06/11/%E5%A6%82%E4%BD%95%E5%9C%A8unity%E4%B8%AD%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2lod%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+
+<meta name="description" content="在 unity 中，我们可以使用 unity 自带的地形系统创建一个超大的地形场景，并且可以利用地形图层，创建出富有真实感的地表材质。但是当我们需要更改地形的渲染方式的时候，比如需要风格化渲染时，使用 unity 自带的地形系统就会很麻烦。因此，我尝试在 unity 中使用 mesh 的方式实现了一个简易的地形系统，这样地形的渲染就和场景中其他网格物体的渲染没有什么区别了，可以很方便地实现各种效果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="玩原神玩的">
+<meta property="og:url" content="http://example.com/2023/06/11/%E5%A6%82%E4%BD%95%E5%9C%A8unity%E4%B8%AD%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2lod%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="玩原神玩的">
+<meta property="og:description" content="在 unity 中，我们可以使用 unity 自带的地形系统创建一个超大的地形场景，并且可以利用地形图层，创建出富有真实感的地表材质。但是当我们需要更改地形的渲染方式的时候，比如需要风格化渲染时，使用 unity 自带的地形系统就会很麻烦。因此，我尝试在 unity 中使用 mesh 的方式实现了一个简易的地形系统，这样地形的渲染就和场景中其他网格物体的渲染没有什么区别了，可以很方便地实现各种效果">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-06-11T06:24:01.131Z">
+<meta property="article:modified_time" content="2023-06-11T06:25:28.054Z">
+<meta property="article:author" content="Guoyangyang &amp; Yangxingyu &amp; Dongxiaoyu">
+<meta property="article:tag" content="Gamer World">
+<meta name="twitter:card" content="summary">
+
+
+  <title>
+ |
+Gamer World = 玩原神玩的 = Genshin</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="Created: 2023-06-11 14:24:01">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">Posted on</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-11T14:24:01+08:00">2023-06-11</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="Toggle navigation bar">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Gamer World</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciszlczyj20zk0m816d.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicivghyooj20zk0m8dir.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">Home</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="cn">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/11/%E5%A6%82%E4%BD%95%E5%9C%A8unity%E4%B8%AD%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2lod%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Guoyangyang & Yangxingyu & Dongxiaoyu">
+    <meta itemprop="description" content="Genshin, 老师你喜欢玩原神吗，或者星铁">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="玩原神玩的">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>在 unity 中，我们可以使用 unity 自带的地形系统创建一个超大的地形场景，并且可以利用地形图层，创建出富有真实感的地表材质。但是当我们需要更改地形的渲染方式的时候，比如需要风格化渲染时，使用 unity 自带的地形系统就会很麻烦。因此，我尝试在 unity 中使用 mesh 的方式实现了一个简易的地形系统，这样地形的渲染就和场景中其他网格物体的渲染没有什么区别了，可以很方便地实现各种效果。</p>
+<p>以下我将分步简要描述实现思路与过程，目录如下：</p>
+<ol>
+<li>将 world machine 中创建的地形导入到 unity 的 mesh 中；</li>
+<li>处理地形数据，按照四叉树层级分块；</li>
+<li>根据摄像机位置动态地组合分块，达到动态地形 LOD 的效果；</li>
+</ol>
+<p>以下是实现的具体过程，个人编码水平比较低，希望大家多多提出意见。</p>
+<p>一、导入地形数据</p>
+<p>在 unity 自带的地形系统中，我们可以通过一张高度图的方式将地形数据从地形生成软件（World Machine，Gaea 等）导入到 unity 引擎中，这张高度图通常是原始图片数据格式 (.raw)。.raw 格式的图片保存了最原始、无损的信息，而我们常用的 png、jpg 图片采用了一些压缩算法来减小图片的大小，但是会损失一些数据，因此在程序化地形工作流中，我们常常使用.raw 来保存地形信息。</p>
+<p>但是.raw 格式的图片并不方便，windows 本身是无法查看这类图片的，而 C# 也需要配置一些环境，并且也比较复杂。因此我选择不使用.raw 图片来存储地形数据，转而直接使用模型文件.obj 格式。</p>
+<p>在 World Machine 中，我们可以直接导出.obj 文件格式，方式如下：</p>
+<p>其中 Triangulation 项表示导出模型的精度，我们选择 Full Resolution Mesh，创建完整的模型。第三项坐标系统，我们选择 X=east Z=north，以匹配 unity 的坐标系统。其他导出选项可以根据需要来选择。</p>
+<p>然后我们就获得了地形网格模型，是常见的 obj 文件，本质上是一个，分别用建模软件和 VS code 查看如下</p>
+<pre><code>   可以看到三角形网格和以字符文本形式保存的模型信息。在.obj文件中，v关键字表示顶点，后面三个值分别表示该顶点的x、y、z位置坐标。
+
+   现在我们获得了地形的完整的模型文件，在使用它之前需要先将它按照四叉树分割成小块，具体如下图所示：
+</code></pre>
+<p>对于本例而言，地形大小为 4096*4096，因此采用六级 LOD，最终 LOD0 有 1024 块，所有 LOD 分块一共 1365 块，我们先从 obj 文件中提取顶点数据，再根据每一块的 LOD 级别与覆盖范围分别建立网格。</p>
+<p>因此，我们先用 C++ 写一个小程序来将顶点信息提取出来，存入到一个文本文件中，方便后续建立网格时使用。</p>
+<p>观察顶点数据，发现顶点数据按照行 - 列的方式排列，这方便了后续的操作。因此，为了提高文件读取的效率，可以将 x 轴与 z 轴的数据抛弃，通过在第一行添加一个常数来表示 x、z 平面上顶点的间隔距离，并且添加第二个常数来表示地形高度的乘数，增强了我们对网格的控制。</p>
+<p>在完善之后，这一部分的 C++ 代码如下：</p>
+<p>#include <iostream><br>
+#include <fstream><br>
+#include <sstream><br>
+#include <cstring><br>
+#include <string><br>
+using namespace std;</p>
+<p>struct vec3{<br>
+int x;<br>
+float y;<br>
+int z;<br>
+};</p>
+<p>vec3 vertices[16785409];</p>
+<p>int main() {<br>
+fstream newtxt;<br>
+newtxt.open(R&quot;(D:\WorldMachine\World Machine 4016\World Machine 4016 Professional\World Machine Documents\Desert\TerrainData.txt)&quot;, ios::out);</p>
+<pre><code>fstream myObj;
+
+myObj.open(R&quot;(D:\WorldMachine\World Machine 4016\World Machine 4016 Professional\World Machine Documents\Desert\height.obj)&quot;, ios::in);
+if(!myObj.is_open())
+    std::cerr&lt;&lt;&quot;cannot open the file&quot;;
+
+
+// 输出先导数据
+float xz_bias = 5;
+float y_bias = 1;
+newtxt &lt;&lt; xz_bias &lt;&lt; &quot; &quot; &lt;&lt; y_bias &lt;&lt; endl;
+
+// 全局
+
+char buffer[1024] = {0};// 读取文件行缓存
+int mesh_num = 0;       // 网格（物体）计数编号
+int count_num = 0;      // 行数计数编号
+
+int cnt_vert = 0;
+
+while (myObj.getline(buffer,sizeof(buffer))){
+    count_num ++;
+    stringstream ss(buffer);    // 一行的字符串流操作
+    if (ss.str().empty())          // 空行
+        continue;
+
+    string flag;    // 行首关键字
+    ss &gt;&gt; flag;
+
+    if (flag == &quot;#&quot;){
+        cout &lt;&lt; &quot;第 &quot; &lt;&lt; count_num &lt;&lt; &quot; 行: &quot; &lt;&lt; &quot;这是一行注释, &quot; &lt;&lt; &quot;注释的内容是:&quot; &lt;&lt; ss.str() &lt;&lt; endl;
+    }
+    else if (flag == &quot;mtllib&quot;){
+        continue;
+    }
+    else if (flag == &quot;v&quot;){  // 顶点
+        float a, b, c;
+        ss &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+        vertices[cnt_vert].x = (cnt_vert % 4097);
+        vertices[cnt_vert].y = b;
+        vertices[cnt_vert].z = (cnt_vert / 4097);
+        newtxt &lt;&lt; b &lt;&lt; endl;
+        cnt_vert ++;
+    }
+    else
+        cout &lt;&lt; ss.str() &lt;&lt; endl;
+    memset(buffer, 0, sizeof(buffer));
+}
+myObj.close();
+cout &lt;&lt; &quot;读取文件完成力&quot; &lt;&lt; endl;
+return 0;
+</code></pre>
+<p>}</p>
+<p>在拿到处理后的顶点数据后，我们打开 unity，新建一个脚本。</p>
+<p>首先创建如下的成员变量：</p>
+<pre><code>// 需要读取的文件路径
+public string datapath;
+
+
+private float xzbias = 0, ybias = 0;    // 格点间隔距离与高度乘数
+public int Size = 4097;    // 地形的规模（正方形边长，要求是2的幂+1）
+private int LEN;            // 常数，表示完整顶点组的长度，等于Size^2
+private int len;            // 常数，表示单片顶点组的长度，等于129*129
+
+
+private Vector3[] CompVert;   // 完整的地形顶点数据，在开始时从文本文件读取数据到该顶点组，在构建mesh时按需从该顶点组读取数据
+
+private Vector2[] CompUV1;    // CompVert对应的第一套UV（地表贴图纹理uv）
+private Vector2[] CompUV2;    // CompVert对应的第二套UV（遮罩图贴图splat map uv）
+
+private Mesh LodMesh;       // 结果的网格，在每次四叉树遍历过程中即时更新该mesh并保存至本地，因此不需要开数组
+
+private Vector3[] vert;         // 结果的顶点数据
+private Vector2[] uv1;
+private Vector2[] uv2;
+private int[] tri;              // 结果的三角形数据（不需要在每次遍历中更新）
+
+private struct quadTreeNodeInfo // 地形瓦片 四叉树节点 信息
+{
+    public Vector2 begin_Pos;  // 开始顶点在完整顶点组中的第几行、第几列
+    public int interval;       // 该地形瓦片的连续顶点在完整顶点组中对应顶点相差数量（LOD0对应该值为1，LOD2对应该值为4）
+    public int LodLeval;       // 该地形瓦片的lod等级
+    public Vector2 Center; // 该地形瓦片的xz平面几何中心位置
+}
+private quadTreeNodeInfo[] qTree;   // 四叉树
+
+
+   我们为所有顶点创建了两套uv，因为地表纹理贴图的uv和splat map的uv是不同的。
+</code></pre>
+<p>然后将文本文件中的地形高度信息读取到 CompVert 数组中。我们用 C# 中的 StreamReader 类来按行读取，再利用 string.Split () 方法将读取到的行根据空格分割，然后用 float.TryParse () 来将字符串转化为浮点数。同时，按照行 - 列的顺序填充 x、z 轴的顶点位置和两套 uv 的信息。这一部分的代码如下：</p>
+<pre><code>private void ReadRawData()    // 参数1：文本文件路径；参数2：完整顶点组数组引用
+{
+    // 创建一个StreamReader类
+    StreamReader RawTerrainData = new StreamReader(@datapath);
+    string line;
+    line = RawTerrainData.ReadLine();
+    string[] bias = line.Split(' ');
+    float.TryParse(bias[0], out xzbias);
+    float.TryParse(bias[1], out ybias);
+
+    for (int i = 0; i &lt; LEN; i++)   // 读取所有顶点   并且给原始uv数据赋值
+    {
+        line = RawTerrainData.ReadLine();
+        string[] stringdata = line.Split(' ');
+        float y = 0;
+        float.TryParse(stringdata[0], out y);
+
+        // xz等于计算值*偏移值，y等于读取值*偏移值
+        CompVert[i].x = (i % 4097) * xzbias;
+        CompVert[i].z = ((int)(i / 4097)) * xzbias;
+        CompVert[i].y = y * ybias;
+
+        // uv1在0-1之间周期性变化
+        CompUV1[i].x = ((i % 4097) % 2) * 0.5f;
+        CompUV1[i].y = (((int)(i / 4097)) % 2) * 0.5f;
+
+        // uv2在0-1之间随着0-4097之间变化
+        CompUV2[i].x = (float)(i % 4097) / 4097.0f;
+        CompUV2[i].y = ((float)i / 4097.0f) / 4097.0f;
+    }
+}
+</code></pre>
+<p></p>
+<p>在完整填充了的顶点数组后，我们还要准备好四叉树。四叉树用线性数组存储，索引 0 表示根节点，对于索引为 i（i≠0）的元素，其父节点为 (i-1)/4 取整，其子节点（如果存在）为 i<em>4+1 到 i</em>4+4。</p>
+<p>四叉树的每个子节点存放了以下信息：</p>
+<p>1、 开始位置：该节点代表的地形分块的第一个顶点在完整顶点组中的索引是第几行、第几列；</p>
+<p>2、 间隔距离：该节点代表的地形分块的相邻的顶点在完整顶点组中的索引的间隔索引数；</p>
+<p>3、 LOD 等级：该节点代表的地形分块的 LOD 等级，0 表示最细节，最大值表示最简单；</p>
+<p>4、 中心位置：该节点代表的地形分块的顶点的在世界空间中的几何中心坐标；</p>
+<p>其中，开始位置与间隔距离信息在创建网格时使用，中心位置信息在动态显示地形时使用。</p>
+<pre><code>   然后我们将四叉树的信息保存到本地，因为这部分的数据不会在游戏运行时被更改。我们按照行数对应四叉树节点索引的方式，数据间以空格分隔的方式保存到本地，这一部分的代码如下所示：
+
+private void BuildQuadTree()
+{
+
+    // 循环形式
+    // 处理根节点
+    qTree[0].Center.x = CompVert[Size * (Size - 1) / 2 + (Size - 1) / 2].x;
+    qTree[0].Center.y = CompVert[Size * (Size - 1) / 2 + (Size - 1) / 2].z;
+    qTree[0].begin_Pos = new Vector2(0, 0);
+    qTree[0].interval = (Size - 1) / 128;
+    qTree[0].LodLeval = 5;  // 完整顶点是0级，最简是6级
+    
+    for(int index = 1; index &lt; qTree.Length; index++)
+    {
+        int num = (index - 1) % 4;
+        int parent = (int)((index - 1) / 4);
+        qTree[index].LodLeval = qTree[parent].LodLeval - 1;
+        qTree[index].interval = qTree[parent].interval / 2;
+
+        qTree[index].Center = qTree[parent].Center;
+        if (num == 0)
+        {
+            qTree[index].begin_Pos = qTree[parent].begin_Pos;
+            qTree[index].Center.x -= 64 * qTree[index].interval * xzbias;
+            qTree[index].Center.y -= 64 * qTree[index].interval * xzbias;
+        }
+            
+        else if (num == 1)
+        {
+            qTree[index].begin_Pos = new Vector2(qTree[parent].begin_Pos.x + 64 * qTree[parent].interval, qTree[parent].begin_Pos.y);
+            qTree[index].Center.x += 64 * qTree[index].interval * xzbias;
+            qTree[index].Center.y -= 64 * qTree[index].interval * xzbias;
+        }
+            
+        else if (num == 2)
+        {
+            qTree[index].begin_Pos = new Vector2(qTree[parent].begin_Pos.x, qTree[parent].begin_Pos.y + 64 * qTree[parent].interval);
+            qTree[index].Center.x -= 64 * qTree[index].interval * xzbias;
+            qTree[index].Center.y += 64 * qTree[index].interval * xzbias;
+        }
+        else
+        {
+            qTree[index].begin_Pos = new Vector2(qTree[parent].begin_Pos.x + 64 * qTree[parent].interval, qTree[parent].begin_Pos.y + 64 * qTree[parent].interval);
+            qTree[index].Center.x += 64 * qTree[index].interval * xzbias;
+            qTree[index].Center.y += 64 * qTree[index].interval * xzbias;
+        }
+    }
+    
+}
+
+private void SaveTree()
+{
+    using (StreamWriter sw = new StreamWriter(@&quot;E:\Unity\MyProjects\Desert_01\Assets\TerrainTree\MyQTree.txt&quot;)) 
+    {
+        
+        for (int i = 0; i &lt; qTree.Length; i++)
+        {
+            string line;
+            line = qTree[i].begin_Pos.x.ToString();
+            line += &quot; &quot;;
+            line += qTree[i].begin_Pos.y.ToString();
+            line += &quot; &quot;;
+            line += qTree[i].interval.ToString();
+            line += &quot; &quot;;
+            line += qTree[i].LodLeval.ToString();
+            line += &quot; &quot;;
+            line += qTree[i].Center.x.ToString();
+            line += &quot; &quot;;
+            line += qTree[i].Center.y.ToString();
+            
+            sw.WriteLine(line);
+        }
+    }
+}
+   四叉树创建完成后，我们在创建并保存网格之前，先创建三角形索引数组。在一般情况下，我们在创建网格时会先创建顶点数组再创建三角形索引数组，但是在这里我们每个地形分块的顶点排列和三角形索引情况完全一致，唯一的区别是顶点位置的区别，因此我们先创建出三角形数组再在遍历四叉树时每次创建网格时在改变顶点数据就可以了。
+
+   在这里，我暂时没有考虑不同LOD层级的地形块的接缝问题，因此三角形按照两个三角形-一个四边形为一个单位，按照行-列的顺序来创建。这一部分的代码如下：
+
+private void CreateTriangle()
+{
+    int tri_n = 0;
+    for (int u = 0; u &lt; 128; u++)
+    {
+        for (int v = 0; v &lt; 128; v++)
+        {
+            tri[tri_n * 6] = u * 129 + v;
+            tri[tri_n * 6 + 1] = tri[tri_n * 6 + 4] = (u + 1) * 129 + v;
+            tri[tri_n * 6 + 2] = tri[tri_n * 6 + 3] = u * 129 + v + 1;
+            tri[tri_n * 6 + 5] = (u + 1) * 129 + v + 1;
+            tri_n++;
+        }
+    }
+}
+   接下来就是重头戏——创建网格了。我们根据四叉树的每一个节点创建一个网格。第一步我们首先将网格的索引数类型改为unsigned int32，unity默认的索引是16位整型，这样会导致顶点数量非常容易溢出，因此更改为32位。然后我们根据四叉树信息获取地形块的开始位置，按照间隔距离递增的方式进行行-列遍历，查找完整顶点数组数据，创建出该块网格顶点数组。同时创建uv数据。在顶点、uv、三角形都完成后，重新计算一次顶点法线。然后将网格保存到Assets目录。这一部分的代码如下：
+
+private void CreateMesh()
+{
+    for(int i = 0; i &lt; qTree.Length; i++)
+    {
+        Mesh mesh = new Mesh();
+        mesh.indexFormat = LodMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        int begin;
+        if (i == 0) 
+            begin = 0;
+        else
+            begin = (int)(qTree[i].begin_Pos.x * Size + qTree[i].begin_Pos.y);
+
+        for (int u = 0; u &lt; 129; u++)
+        {
+            for (int v = 0; v &lt; 129; v++)
+            {
+                vert[u * 129 + v] = CompVert[begin + u * Size * qTree[i].interval + v * qTree[i].interval];
+
+                uv1[u * 129 + v] = CompUV1[begin + u * Size * qTree[i].interval + v * qTree[i].interval];
+                //uv2[u * 129 + v] = CompUV2[begin + u * Size * qTree[i].interval + v * qTree[i].interval];
+            }
+        }
+        mesh.vertices = vert;
+        mesh.uv = uv1;
+        mesh.uv2 = uv2;
+        mesh.triangles = tri;
+        mesh.RecalculateNormals();
+        string MeshName = &quot;Assets/LodMeshes/LodMesh_&quot; + i.ToString() + &quot;.asset&quot;;
+        AssetDatabase.CreateAsset(mesh, MeshName);
+    }
+}
+   至此，我们已经完成了四叉树地形的大部分工作，在下一节，我将简要讲解如何在游戏过程中动态地组合创建好的地形分块网格，从而实现地形实时LOD的效果。
+</code></pre>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">Edited on</span>
+    <time title="Modified: 2023-06-11 14:25:28" itemprop="dateModified" datetime="2023-06-11T14:25:28+08:00">2023-06-11</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> Donate</button>
+  <p>Give me a cup of [coffee]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="Guoyangyang & Yangxingyu & Dongxiaoyu WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="Guoyangyang & Yangxingyu & Dongxiaoyu Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="Guoyangyang & Yangxingyu & Dongxiaoyu PayPal">
+        <p>PayPal</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>Post author:  </strong>Guoyangyang & Yangxingyu & Dongxiaoyu <i class="ic i-at"><em>@</em></i>玩原神玩的
+  </li>
+  <li class="link">
+    <strong>Post link: </strong>
+    <a href="http://example.com/2023/06/11/%E5%A6%82%E4%BD%95%E5%9C%A8unity%E4%B8%AD%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2lod%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/" title="">http://example.com/2023/06/11/如何在unity中手写一个四叉树地形lod系统（一）/</a>
+  </li>
+  <li class="license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/05/30/unity%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicljgocqbj20zk0m8e81.jpg" title="Untitled">
+  <span class="type">Previous Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Untitled</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2023/06/17/CUDA/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipesx5fdwj20zk0m81kx.jpg" title="Untitled">
+  <span class="type">Next Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Untitled</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="Contents">
+      </div>
+      <div class="related panel pjax" data-title="Related">
+      </div>
+      <div class="overview panel" data-title="Overview">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Guoyangyang & Yangxingyu & Dongxiaoyu"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Guoyangyang & Yangxingyu & Dongxiaoyu</p>
+  <div class="description" itemprop="description">老师你喜欢玩原神吗，或者星铁</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">7</span>
+        <span class="name">posts</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2023/05/30/unity%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="prev" title="Previous Post"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2023/06/17/CUDA/" rel="next" title="Next Post"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>Random Posts</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/11/%E5%A6%82%E4%BD%95%E5%9C%A8unity%E4%B8%AD%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2lod%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/17/Unity%E7%9A%84gitignore/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/17/CUDA/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/17/Unity%E5%89%A7%E6%83%85%E7%BC%96%E8%BE%91/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/17/GitHub-For-Unity/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/27/hello-world/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/30/unity%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Untitled">Untitled</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>Recent Comments</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Guoyangyang & Yangxingyu & Dongxiaoyu @ Gamer World</span>
+  </div>
+  <div class="powered-by">
+    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/06/11/如何在unity中手写一个四叉树地形lod系统（一）/',
+    favicon: {
+      show: "（●´3｀●）Goooood",
+      hide: "(´Д｀)Booooom"
+    },
+    search : {
+      placeholder: "Search for Posts",
+      empty: "We didn't find any results for the search: ${query}",
+      stats: "${hits} results found in ${time} ms"
+    },
+    valine: true,fancybox: true,
+    copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

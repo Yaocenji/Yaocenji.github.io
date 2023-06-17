@@ -1,0 +1,521 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="玩原神玩的" href="http://example.com/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="玩原神玩的" href="http://example.com/atom.xml" />
+<link rel="alternate" type="application/json" title="玩原神玩的" href="http://example.com/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+
+<link rel="canonical" href="http://example.com/2023/06/17/CUDA/">
+
+
+<meta name="description" content="# Benefit of GPU GPU 和 CPU 之间的能力差异是因为它们在设计时考虑了不同的目标。CPU 的设计目标是尽可能快地执行一系列被称为线程的操作，并且可以并行执行几十个这样的线程，而 GPU 的设计目标是并行执行数千个这样的操作 (摊销较慢的单线程性能以实现更大的吞吐量)。  GPU 专为高度并行计算而设计，因此更多的晶体管用于数据处理，而不是数据缓存和流控制。 # CUDA: 一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="玩原神玩的">
+<meta property="og:url" content="http://example.com/2023/06/17/CUDA/index.html">
+<meta property="og:site_name" content="玩原神玩的">
+<meta property="og:description" content="# Benefit of GPU GPU 和 CPU 之间的能力差异是因为它们在设计时考虑了不同的目标。CPU 的设计目标是尽可能快地执行一系列被称为线程的操作，并且可以并行执行几十个这样的线程，而 GPU 的设计目标是并行执行数千个这样的操作 (摊销较慢的单线程性能以实现更大的吞吐量)。  GPU 专为高度并行计算而设计，因此更多的晶体管用于数据处理，而不是数据缓存和流控制。 # CUDA: 一">
+<meta property="og:locale">
+<meta property="og:image" content="https://article.biliimg.com/bfs/article/fe58fede62314a8c41c9a1356810d0346f46e96b.png">
+<meta property="og:image" content="https://article.biliimg.com/bfs/article/9afd9bae8795182c871291396341a129fa9b8635.png">
+<meta property="og:image" content="https://article.biliimg.com/bfs/article/d71c282129d110be5933554d2efc2630a64a07eb.png">
+<meta property="og:image" content="https://article.biliimg.com/bfs/article/af3c5ff5c1ba4a09a62a0b041f1602b50d2287a6.png">
+<meta property="og:image" content="https://article.biliimg.com/bfs/article/ed51fd6278384f281e5f30ce8eb8a462b676b289.png">
+<meta property="og:image" content="https://article.biliimg.com/bfs/article/c1f47de00738c2a181ff6d98d17b0ef7d2e3c5e9.png">
+<meta property="og:image" content="https://article.biliimg.com/bfs/article/51eb4199a378457a3ceec452c57beb469070664a.png">
+<meta property="article:published_time" content="2023-06-17T13:12:47.907Z">
+<meta property="article:modified_time" content="2023-06-17T13:12:47.908Z">
+<meta property="article:author" content="Guoyangyang &amp; Yangxingyu &amp; Dongxiaoyu">
+<meta property="article:tag" content="Gamer World">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://article.biliimg.com/bfs/article/fe58fede62314a8c41c9a1356810d0346f46e96b.png">
+
+
+  <title>
+ |
+Gamer World = 玩原神玩的 = Genshin</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="Created: 2023-06-17 21:12:47">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">Posted on</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-17T21:12:47+08:00">2023-06-17</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="Toggle navigation bar">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Gamer World</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicm0n457cj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclwuom7cj20zk0m8dvn.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">Home</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="cn">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/17/CUDA/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Guoyangyang & Yangxingyu & Dongxiaoyu">
+    <meta itemprop="description" content="Genshin, 老师你喜欢玩原神吗，或者星铁">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="玩原神玩的">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="benefit-of-gpu"><a class="markdownIt-Anchor" href="#benefit-of-gpu">#</a> Benefit of GPU</h1>
+<p>GPU 和 CPU 之间的能力差异是因为它们在设计时考虑了不同的目标。CPU 的设计目标是尽可能快地执行一系列被称为线程的操作，并且可以并行执行几十个这样的线程，而 GPU 的设计目标是并行执行数千个这样的操作 (摊销较慢的单线程性能以实现更大的吞吐量)。<br>
+<img data-src="https://article.biliimg.com/bfs/article/fe58fede62314a8c41c9a1356810d0346f46e96b.png" alt=""><br>
+GPU 专为高度并行计算而设计，因此更多的晶体管用于数据处理，而不是数据缓存和流控制。</p>
+<h1 id="cuda-一种通用并行计算平台和编程模型"><a class="markdownIt-Anchor" href="#cuda-一种通用并行计算平台和编程模型">#</a> CUDA: 一种通用并行计算平台和编程模型</h1>
+<p><img data-src="https://article.biliimg.com/bfs/article/9afd9bae8795182c871291396341a129fa9b8635.png" alt=""></p>
+<h1 id="可伸缩编程模型"><a class="markdownIt-Anchor" href="#可伸缩编程模型">#</a> 可伸缩编程模型</h1>
+<p>它的核心是三个关键的抽象 —— 线程组的层次结构、共享内存和障碍同步 —— 它们只是作为语言扩展的最小集合公开给程序员。<br>
+这些抽象提供了细粒度的数据并行性和线程并行性，嵌套在粗粒度的数据并行性和任务并行性之中。它们指导程序员将问题划分为可以由线程块独立并行解决的粗子问题，并将每个子问题划分为可以由块内所有线程并行合作解决的细子问题。<br>
+<img data-src="https://article.biliimg.com/bfs/article/d71c282129d110be5933554d2efc2630a64a07eb.png" alt=""><br>
+Automatic Scalability</p>
+<h1 id="programming-model"><a class="markdownIt-Anchor" href="#programming-model">#</a> Programming Model</h1>
+<p>CUDA c<ins> 扩展了 c</ins>，允许程序员定义 c<ins> 函数，称为内核，当调用时，被 N 个不同的 CUDA 线程并行执行 N 次，而不是像普通的 c</ins> 函数一样只执行一次。<br>
+每个块的线程数量是有限制的，因为一个块的所有线程都驻留在同一个流多处理器内核上，并且必须共享该内核的有限内存资源。在当前的 gpu 上，一个线程块最多可以包含 1024 个线程。<br>
+但是，一个内核可以由多个形状相同的线程块执行，这样线程总数就等于每个块的线程数乘以块的数量。<br>
+<img data-src="https://article.biliimg.com/bfs/article/af3c5ff5c1ba4a09a62a0b041f1602b50d2287a6.png" alt=""><br>
+每个块的线程数和每个网格的块数在 &lt;&lt;&lt;…&gt;&gt;&gt; 语法的类型可以是 int 或 dim3。可以像上面的示例那样指定二维块或网格。<br>
+网格中的每个块都可以通过内核中内置的 blockIdx 变量访问的一维、二维或三维唯一索引来标识。线程块的尺寸可以在内核中通过内置的 blockDim 变量访问。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">∕∕ <span class="function">Kernel definition </span></span><br><span class="line"><span class="function">__global__ <span class="type">void</span> <span class="title">MatAdd</span><span class="params">(<span class="type">float</span> A[N][N], <span class="type">float</span> B[N][N], <span class="type">float</span> C[N][N])</span></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">	 <span class="type">int</span> i = blockIdx.x * blockDim.x + threadIdx.x; </span><br><span class="line">	 <span class="type">int</span> j = blockIdx.y * blockDim.y + threadIdx.y; </span><br><span class="line">	 <span class="keyword">if</span> (i &lt; N &amp;&amp; j &lt; N) </span><br><span class="line">	 C[i][j] = A[i][j] + B[i][j]; </span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123; </span><br><span class="line">... </span><br><span class="line">∕∕ <span class="function">Kernel invocation </span></span><br><span class="line"><span class="function">dim3 <span class="title">threadsPerBlock</span><span class="params">(<span class="number">16</span>, <span class="number">16</span>)</span></span>; </span><br><span class="line"><span class="function">dim3 <span class="title">numBlocks</span><span class="params">(N ∕ threadsPerBlock.x, N ∕ threadsPerBlock.y)</span></span>; </span><br><span class="line">MatAdd&lt;&lt;&lt;numBlocks,threadsPerBlock&gt;&gt;&gt;(A,B,C);</span><br><span class="line">... </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>块中的线程可以通过共享内存共享数据，并通过同步它们的执行来协调内存访问。更准确地说，可以通过调用__syncthreads () 内在函数来指定内核中的同步点；__syncthreads () 充当了一个屏障，在允许任何线程继续之前，块中的所有线程都必须等待。共享内存给出了一个使用共享内存的示例。除了__syncthreads ()， Cooperative Groups API 还提供了一组丰富的线程同步原语。为了高效的合作，共享内存应该是靠近每个处理器核心的低延迟内存 (很像 L1 缓存)，而__syncthreads () 应该是轻量的</p>
+<h2 id="thread-block-clusters"><a class="markdownIt-Anchor" href="#thread-block-clusters">#</a> Thread Block Clusters</h2>
+<p>With the introduction of NVIDIA <em>Compute Capability 9.0</em>, CUDA 编程模型引入了一个可选的层次结构级别，称为线程块集群，由线程块组成。类似于线程块中的线程如何保证在流多处理器上共调度，集群中的线程块也保证在 GPU 中的 GPU 处理集群 (GPC) 上共调度。<br>
+与线程块类似，集群也被组织成一维、二维或三维，如图 5 所示。<br>
+<img data-src="https://article.biliimg.com/bfs/article/ed51fd6278384f281e5f30ce8eb8a462b676b289.png" alt=""></p>
+<h2 id="memory-hierarchy"><a class="markdownIt-Anchor" href="#memory-hierarchy">#</a> Memory Hierarchy</h2>
+<p>CUDA 线程在执行过程中可以从多个内存空间访问数据，每个线程都有私有的本地内存。每个线程块都具有对该块的所有线程可见的共享内存，并且具有与该块相同的生命周期。线程块集群中的线程块可以在彼此的共享内存上执行读、写和原子操作。所有线程都可以访问相同的全局内存。<br>
+<img data-src="https://article.biliimg.com/bfs/article/c1f47de00738c2a181ff6d98d17b0ef7d2e3c5e9.png" alt=""><br>
+另外还有两个所有线程都可以访问的只读内存空间：常量和纹理内存空间。全局、常量和纹理内存空间针对不同的内存使用进行了优化 (参见设备内存访问)。纹理内存还为某些特定的数据格式提供了不同的寻址模式，以及数据过滤 (参见纹理和表面内存)。<br>
+全局内存、常量内存和纹理内存空间在同一应用程序的内核启动过程中是持久化的。</p>
+<h2 id="heterogeneous-programming"><a class="markdownIt-Anchor" href="#heterogeneous-programming">#</a> Heterogeneous Programming</h2>
+<p><img data-src="https://article.biliimg.com/bfs/article/51eb4199a378457a3ceec452c57beb469070664a.png" alt=""><br>
+CUDA 编程模型假设 CUDA 线程在物理上独立的设备上执行，该设备作为运行 c<ins> 程序的主机的协处理器。例如，当内核在 GPU 上执行，而 c</ins> 程序的其余部分在 CPU 上执行时，就是这种情况。<br>
+CUDA 编程模型还假定主机和设备都在 DRAM 中维护各自独立的内存空间，分别称为主机内存和设备内存。因此，程序通过调用 CUDA 运行时 (在编程接口中描述) 来管理内核可见的全局、常量和纹理内存空间。这包括设备内存分配和回收，以及主机和设备内存之间的数据传输。<br>
+统一内存提供托管内存，以桥接主机和设备内存空间。托管内存可以从系统中的所有 cpu 和 gpu 访问，作为具有公共地址空间的单个连贯内存映像。此功能支持设备内存的超额订阅，并且通过消除在主机和设备上显式镜像数据的需要，可以极大地简化移植应用程序的任务。</p>
+<h2 id="asynchronous-simt-programming-model"><a class="markdownIt-Anchor" href="#asynchronous-simt-programming-model">#</a> Asynchronous SIMT Programming Model</h2>
+<p>在 CUDA 编程模型中，线程是在内存操作上进行计算的最低抽象级别。从基于 NVIDIA Ampere GPU 架构的设备开始，CUDA 编程模型通过异步编程模型为内存操作提供加速。<br>
+异步编程模型定义了与 CUDA 线程相关的异步操作的行为。异步编程模型定义了用于 CUDA 线程之间同步的异步 Barrier 行为。该模型还解释并定义了 cuda: memcpy_async 如何在 GPU 计算时从全局内存异步移动数据。</p>
+<h3 id="asynchronous-operations"><a class="markdownIt-Anchor" href="#asynchronous-operations">#</a> Asynchronous Operations</h3>
+<p>异步操作被定义为由 CUDA 线程发起并像由另一个线程一样异步执行的操作。在一个结构良好的程序中，一个或多个 CuDA 线程与异步操作同步。发起异步操作的 CUDA 线程不需要在同步线程中。<br>
+这样的异步线程 (as-if 线程) 总是与发起异步操作的 CUDA 线程相关联。异步操作使用同步对象同步操作的完成。这样的同步对象可以由用户显式管理 (例如 cuda::memcpy_async)，也可以在库中隐式管理 (例如 cooperative_groups::memcpy_async)。<br>
+同步对象可以是 cuda:: barrier 或 cuda:: pipeline。这些对象在异步屏障和使用 cuda: pipeline 的异步数据拷贝中有详细的解释。这些同步对象可以用于不同的线程作用域。作用域定义了可以使用同步对象与异步操作同步的线程集。下表定义了 CUDA c++ 中可用的线程范围以及可以与每个线程同步的线程。</p>
+<h2 id="compute-capability"><a class="markdownIt-Anchor" href="#compute-capability">#</a> Compute Capability</h2>
+<h2 id="programming-interface"><a class="markdownIt-Anchor" href="#programming-interface">#</a> Programming Interface</h2>
+<p>它由 c<ins> 语言的最小扩展集和运行时库组成。核心语言扩展已经在编程模型中引入。它们允许程序员将内核定义为 c</ins> 函数，并在每次调用函数时使用一些新的语法来指定网格和块维度。所有扩展的完整描述可以在 c++ 语言扩展中找到。任何包含这些扩展名的源文件都必须使用 nvcc 编译，如使用 nvcc 编译中所述。</p>
+<h3 id="compilation-with-nvcc"><a class="markdownIt-Anchor" href="#compilation-with-nvcc">#</a> Compilation with NVCC</h3>
+<p>内核 (kernels) 可以使用 CUDA 指令集架构编写，称为 PTX，在 PTX 参考手册中有描述。然而，使用高级编程语言 (如 c++) 通常更有效。在这两种情况下，内核都必须被 nvcc 编译成二进制代码才能在设备上执行。<br>
+nvcc 是一个编译器驱动程序，它简化了编译 c++ 或 PTX 代码的过程：它提供了简单而熟悉的命令行选项，并通过调用实现不同编译阶段的工具集合来执行它们。<br>
+用 nvcc 编译的源文件可以混合包含主机代码 (即在主机上执行的代码) 和设备代码 (即在设备上执行的代码)。Nvcc 的基本工作流程包括将设备代码从主机代码中分离出来，然后:</p>
+<ul>
+<li>将设备代码编译为汇编形式 (PTX 代码) 和 / 或二进制形式 (立方体对象)，</li>
+<li>and modifying the host code by replacing the &lt;&lt;&lt;…&gt;&gt;&gt; syntax introduced in Kernels (and described in more details in Execution Configuration) by the necessary CUDA runtime function calls to load and launch each compiled kernel from the PTX code and/or cubin object.<br>
+ 修改后的主机代码可以作为 c++ 代码输出，然后使用其他工具进行编译，也可以通过让 nvcc 在最后一个编译阶段调用主机编译器直接作为目标代码输出。<br>
+Applications can then:</li>
+<li>Either link to the compiled host code (this is the most common case),</li>
+<li>Or ignore the modified host code (if any) and use the CUDA driver API (see Driver API) to load and execute the PTX code or cubin object.</li>
+</ul>
+<h3 id="即时编译"><a class="markdownIt-Anchor" href="#即时编译">#</a> 即时编译</h3>
+<p>应用程序在运行时加载的任何 PTX 代码都被设备驱动程序进一步编译为二进制代码。这被称为即时编译。即时编译增加了应用程序加载时间，但允许应用程序从每个新设备驱动程序带来的任何新的编译器改进中受益。这也是应用程序在编译应用程序时不存在的设备上运行的唯一方法.<br>
+ 当设备驱动程序即时编译某些应用程序的 PTX 代码时，它会自动缓存生成的二进制代码的副本，以避免在后续应用程序调用中重复编译。缓存 (称为计算缓存) 在设备驱动程序升级时自动失效，因此应用程序可以从设备驱动程序中内置的新即时编译器的改进中受益。</p>
+<h3 id="binary-compatibility"><a class="markdownIt-Anchor" href="#binary-compatibility">#</a> Binary Compatibility</h3>
+<p>二进制代码是特定于体系结构的。使用指定目标体系结构的编译器选项 - code 生成 cubin 对象:<br>
+For example, compiling with -code=sm_80 produces binary code for devices of compute capability 8.0. Binary compatibility is guaranteed from one minor revision to the next one, but not from one minor revision to the previous one or across major revisions. In other words, a cubin object generated for compute capability X.y will only execute on devices of compute capability X.z where z.y.</p>
+<h3 id="ptx-兼容性"><a class="markdownIt-Anchor" href="#ptx-兼容性">#</a> PTX 兼容性</h3>
+<p>某些 PTX 指令仅在具有较高计算能力的设备上受支持。例如，Warp Shuffle 函数仅在计算能力 5.0 及以上的设备上支持。arch 编译器选项指定在将 c++ 编译为 PTX 代码时假定的计算能力。因此，例如，包含 warp shuffle 的代码必须使用 - arch=compute_30 (或更高) 来编译。<br>
+为某些特定计算能力而产生的 PTX 代码总是可以编译为具有更大或相同计算能力的二进制代码。请注意，从较早的 PTX 版本编译的二进制文件可能不使用某些硬件特性。例如，一个二进制目标设备的计算能力 7.0 (Volta) 编译自 PTX 生成的计算能力 6.0 (Pascal) 将不使用张量核心指令，因为这些在 Pascal 上是不可用的。因此，如果使用最新版本的 PTX 生成二进制文件，最终二进制文件的性能可能会更差。</p>
+<h3 id="应用程序兼容性"><a class="markdownIt-Anchor" href="#应用程序兼容性">#</a> 应用程序兼容性</h3>
+<p>要在具有特定计算能力的设备上执行代码，应用程序必须加载与此计算能力兼容的二进制或 PTX 代码，如二进制兼容性和 PTX 兼容性中所述。特别是，为了能够在具有更高计算能力的未来架构上执行代码 (目前还不能生成二进制代码)，应用程序必须加载将为这些设备即时编译的 PTX 代码</p>
+<h1 id="cuda-runtime"><a class="markdownIt-Anchor" href="#cuda-runtime">#</a> CUDA Runtime</h1>
+<h2 id="initialization"><a class="markdownIt-Anchor" href="#initialization">#</a> Initialization</h2>
+<p>运行时没有显式的初始化函数；它在第一次调用运行时函数时初始化 (更具体地说，除了参考手册中的错误处理和版本管理部分中的函数之外的任何函数)。在计时运行时函数调用时，以及在解释从第一次调用到运行时的错误代码时，需要记住这一点。</p>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> Donate</button>
+  <p>Give me a cup of [coffee]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="Guoyangyang & Yangxingyu & Dongxiaoyu WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="Guoyangyang & Yangxingyu & Dongxiaoyu Alipay">
+        <p>Alipay</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="Guoyangyang & Yangxingyu & Dongxiaoyu PayPal">
+        <p>PayPal</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>Post author:  </strong>Guoyangyang & Yangxingyu & Dongxiaoyu <i class="ic i-at"><em>@</em></i>玩原神玩的
+  </li>
+  <li class="link">
+    <strong>Post link: </strong>
+    <a href="http://example.com/2023/06/17/CUDA/" title="">http://example.com/2023/06/17/CUDA/</a>
+  </li>
+  <li class="license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/06/11/%E5%A6%82%E4%BD%95%E5%9C%A8unity%E4%B8%AD%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2lod%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicljitigmj20zk0m87fp.jpg" title="Untitled">
+  <span class="type">Previous Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Untitled</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2023/06/17/Unity%E5%89%A7%E6%83%85%E7%BC%96%E8%BE%91/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciuv0socj20zk0m8qes.jpg" title="Untitled">
+  <span class="type">Next Post</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Untitled</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="Contents">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#benefit-of-gpu"><span class="toc-number">1.</span> <span class="toc-text"> Benefit of GPU</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cuda-%E4%B8%80%E7%A7%8D%E9%80%9A%E7%94%A8%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E5%92%8C%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text"> CUDA: 一种通用并行计算平台和编程模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%AF%E4%BC%B8%E7%BC%A9%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text"> 可伸缩编程模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#programming-model"><span class="toc-number">4.</span> <span class="toc-text"> Programming Model</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#thread-block-clusters"><span class="toc-number">4.1.</span> <span class="toc-text"> Thread Block Clusters</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#memory-hierarchy"><span class="toc-number">4.2.</span> <span class="toc-text"> Memory Hierarchy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#heterogeneous-programming"><span class="toc-number">4.3.</span> <span class="toc-text"> Heterogeneous Programming</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#asynchronous-simt-programming-model"><span class="toc-number">4.4.</span> <span class="toc-text"> Asynchronous SIMT Programming Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#asynchronous-operations"><span class="toc-number">4.4.1.</span> <span class="toc-text"> Asynchronous Operations</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#compute-capability"><span class="toc-number">4.5.</span> <span class="toc-text"> Compute Capability</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#programming-interface"><span class="toc-number">4.6.</span> <span class="toc-text"> Programming Interface</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#compilation-with-nvcc"><span class="toc-number">4.6.1.</span> <span class="toc-text"> Compilation with NVCC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91"><span class="toc-number">4.6.2.</span> <span class="toc-text"> 即时编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#binary-compatibility"><span class="toc-number">4.6.3.</span> <span class="toc-text"> Binary Compatibility</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ptx-%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-number">4.6.4.</span> <span class="toc-text"> PTX 兼容性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-number">4.6.5.</span> <span class="toc-text"> 应用程序兼容性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cuda-runtime"><span class="toc-number">5.</span> <span class="toc-text"> CUDA Runtime</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#initialization"><span class="toc-number">5.1.</span> <span class="toc-text"> Initialization</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="Related">
+      </div>
+      <div class="overview panel" data-title="Overview">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Guoyangyang & Yangxingyu & Dongxiaoyu"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Guoyangyang & Yangxingyu & Dongxiaoyu</p>
+  <div class="description" itemprop="description">老师你喜欢玩原神吗，或者星铁</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">7</span>
+        <span class="name">posts</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>Home</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2023/06/11/%E5%A6%82%E4%BD%95%E5%9C%A8unity%E4%B8%AD%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2lod%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="Previous Post"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2023/06/17/Unity%E5%89%A7%E6%83%85%E7%BC%96%E8%BE%91/" rel="next" title="Next Post"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>Random Posts</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/17/Unity%E5%89%A7%E6%83%85%E7%BC%96%E8%BE%91/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/17/GitHub-For-Unity/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/17/Unity%E7%9A%84gitignore/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/17/CUDA/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/27/hello-world/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/30/unity%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BA%8C%EF%BC%89/" title="Untitled">Untitled</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/11/%E5%A6%82%E4%BD%95%E5%9C%A8unity%E4%B8%AD%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E5%9B%9B%E5%8F%89%E6%A0%91%E5%9C%B0%E5%BD%A2lod%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89/" title="Untitled">Untitled</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>Recent Comments</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Guoyangyang & Yangxingyu & Dongxiaoyu @ Gamer World</span>
+  </div>
+  <div class="powered-by">
+    Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/06/17/CUDA/',
+    favicon: {
+      show: "（●´3｀●）Goooood",
+      hide: "(´Д｀)Booooom"
+    },
+    search : {
+      placeholder: "Search for Posts",
+      empty: "We didn't find any results for the search: ${query}",
+      stats: "${hits} results found in ${time} ms"
+    },
+    valine: true,fancybox: true,
+    copyright: 'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
